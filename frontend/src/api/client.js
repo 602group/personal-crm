@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { TOKEN_KEY, REFRESH_KEY } from '../context/AuthContext';
 
-// In production (Netlify), VITE_API_URL points to your Render backend.
+// In production (Netlify), use the live Render backend.
 // In local dev it falls back to localhost.
+const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+const BASE_URL = isLocal 
+  ? 'http://localhost:3001/api/v1' 
+  : 'https://personal-crm-d8gs.onrender.com/api/v1';
+
 const apiClient = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL || 'http://localhost:3001') + '/api/v1',
+  baseURL: import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api/v1' : BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000,
 });
