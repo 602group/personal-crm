@@ -84,22 +84,19 @@ function migrate() {
 
   console.log('[migrate] All migrations complete.');
   
-  // Auto-seed admin user if users table is empty
-  const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get();
-  if (userCount.count === 0) {
-    console.log('[migrate] No users found. Auto-seeding admin user...');
-    const email = 'hburnside99@gmail.com';
-    const password = 'Waterboy1';
-    const password_hash = bcrypt.hashSync(password, 12);
-    const id = uuidv4();
-    
-    db.prepare(`
-      INSERT INTO users (id, email, password_hash, name, role)
-      VALUES (?, ?, ?, ?, 'owner')
-    `).run(id, email, password_hash, 'Hunter Burnside');
-    
-    console.log(`[migrate] Admin seeded: ${email}`);
-  }
+  // Auto-seed or force-update admin user credentials
+  const email = 'hburnside99@gmail.com';
+  const password = 'Waterboy1';
+  const password_hash = bcrypt.hashSync(password, 12);
+  const id = uuidv4();
+  
+  db.prepare(`
+    INSERT INTO users (id, email, password_hash, name, role)
+    VALUES (?, ?, ?, ?, 'owner')
+    ON CONFLICT(email) DO UPDATE SET password_hash=excluded.password_hash, role='owner'
+  `).run(id, email, password_hash, 'Hunter Burnside');
+  
+  console.log(`[migrate] Admin seeded/updated: ${email}`);
 }
 
 migrate();
