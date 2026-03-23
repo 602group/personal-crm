@@ -20,6 +20,7 @@ import Search   from '../pages/Search';
 import Settings from '../pages/Settings';
 import Users    from '../pages/Users';
 import Email    from '../pages/Email';
+import Epic     from '../pages/Epic';
 import NotFound from '../pages/NotFound';
 
 const router = createBrowserRouter([
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       { path: '/calendar',    element: <Calendar /> },
       { path: '/calendar/:id', element: <EventDetail /> },
       { path: '/finance',   element: <Finance /> },
+      { path: '/epic',      element: <Epic /> },
       { path: '/email',     element: <Email /> },
       { path: '/search',    element: <Search /> },
       { path: '/settings',  element: <Settings /> },

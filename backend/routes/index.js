@@ -15,5 +15,6 @@ router.use('/finance',      require('./finance'));
 router.use('/search',       require('./search'));
 router.use('/notifications', require('./notifications'));
 router.use('/email',         require('./email'));
+router.use('/epic',          require('./epic'));
 
 module.exports = router;
