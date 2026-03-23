@@ -407,7 +407,7 @@ kbd {
   color: var(--color-neutral-500);
   text-decoration: none;
 }
-.breadcrumb a:hover { color: var(--color-brand-600); text-decoration: underline; }
+.breadcrumb a:hover { color: var(--color-brand-600); text-decoration: none; }
 .breadcrumb-current { color: var(--color-neutral-700); font-weight: var(--weight-medium); }
 
 /* ── Status Bar (inside content, e.g. sync indicator) ── */

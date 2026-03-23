@@ -80,7 +80,7 @@
 }
 .project-card-actions {
   display: flex; gap: 4px; flex-shrink: 0;
-  opacity: 0; transition: opacity var(--transition-fast);
+   
 }
 .project-card:hover .project-card-actions { opacity: 1; }
 .project-card-btn {

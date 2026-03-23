@@ -99,7 +99,7 @@
   font-size: 11px; font-weight: var(--weight-medium);
   background: var(--color-neutral-100); color: var(--color-neutral-500);
 }
-.fin-row-actions { display: flex; gap: 4px; opacity: 0; transition: opacity var(--transition-fast); justify-content: flex-end; }
+.fin-row-actions { display: flex; gap: 4px;   justify-content: flex-end; }
 .fin-tr:hover .fin-row-actions { opacity: 1; }
 .fin-icon-btn {
   background: none; border: none; cursor: pointer; font-size: 13px;

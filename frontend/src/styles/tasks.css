@@ -120,7 +120,7 @@
 .task-due.none    { color: var(--color-neutral-350); }
 
 /* Actions cell */
-.task-row-actions { display: flex; justify-content: flex-end; gap: 4px; opacity: 0; transition: opacity var(--transition-fast); }
+.task-row-actions { display: flex; justify-content: flex-end; gap: 4px;   }
 .task-row:hover .task-row-actions { opacity: 1; }
 .task-row-btn {
   background: none; border: none; cursor: pointer; padding: 4px;

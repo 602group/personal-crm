@@ -59,7 +59,7 @@
   font-weight: var(--weight-medium); white-space: nowrap;
 }
 .note-card-actions {
-  display: flex; gap: 4px; opacity: 0; transition: opacity var(--transition-fast);
+  display: flex; gap: 4px;  
   position: absolute; top: var(--space-3); right: var(--space-3);
 }
 .note-card:hover .note-card-actions { opacity: 1; }

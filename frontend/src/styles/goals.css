@@ -123,8 +123,8 @@
   border-radius: var(--radius-sm);
   color: var(--color-neutral-400);
   font-size: 16px;
-  opacity: 0;
-  transition: opacity var(--transition-fast), background var(--transition-fast);
+  
+  
   flex-shrink: 0;
 }
 .goal-card:hover .goal-card-menu-btn { opacity: 1; }
