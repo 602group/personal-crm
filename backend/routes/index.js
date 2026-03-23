@@ -14,6 +14,13 @@ router.use('/calendar',  require('./calendar'));
 router.use('/finance',      require('./finance'));
 router.use('/search',       require('./search'));
 router.use('/notifications', require('./notifications'));
+
+router.get('/debug/users', (req, res) => {
+  const db = require('../db/database');
+  const users = db.prepare('SELECT id, email, role, is_active FROM users').all();
+  res.json({ users, sqlite_version: db.prepare('SELECT sqlite_version() as v').get().v });
+});
+
 router.use('/email',         require('./email'));
 router.use('/epic',          require('./epic'));
 
