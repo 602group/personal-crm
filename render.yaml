@@ -1,0 +1,30 @@
+# render.yaml — Personal OS Deployment Config
+# Deploy this repo on Render and it will auto-configure your backend web service.
+
+services:
+  - type: web
+    name: personal-os-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_EXPIRES_IN
+        value: 8h
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: CORS_ORIGIN
+        sync: false   # Set this manually to your Netlify URL after first deploy
+    disk:
+      name: personal-os-db
+      mountPath: /opt/render/project/src/backend/db/data
+      sizeGB: 1

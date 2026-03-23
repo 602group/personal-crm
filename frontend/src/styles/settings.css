@@ -1,0 +1,129 @@
+/* ============================================================
+   Personal OS — Settings & Users Page Styles
+   ============================================================ */
+
+/* ── Settings Tabs ── */
+.settings-tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--color-neutral-200);
+  margin-bottom: var(--space-6);
+}
+
+.settings-tab {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-500);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  margin-bottom: -1px;
+}
+.settings-tab:hover { color: var(--color-neutral-800); }
+.settings-tab.active {
+  color: var(--color-brand-600);
+  border-bottom-color: var(--color-brand-600);
+}
+
+.settings-body { max-width: 640px; }
+.settings-section { margin-bottom: var(--space-6); }
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.settings-read-only {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-neutral-100);
+}
+
+.avatar-preview-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.settings-avatar {
+  width: 56px;
+  height: 56px;
+  font-size: var(--text-lg);
+  border: 2px solid var(--color-neutral-200);
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-top: 22px; /* align with input */
+}
+
+.settings-success {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-success-light);
+  color: var(--color-success-dark);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  border: 1px solid rgba(16,185,129,0.2);
+}
+
+.settings-error {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-danger-light);
+  color: var(--color-danger-dark);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+/* ── Users Table ── */
+.users-table-wrap {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.users-table thead tr {
+  border-bottom: 1px solid var(--color-neutral-150);
+}
+
+.users-table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-neutral-500);
+  white-space: nowrap;
+}
+
+.users-table td {
+  padding: var(--space-4) var(--space-4);
+  border-bottom: 1px solid var(--color-neutral-100);
+  vertical-align: middle;
+}
+
+.users-table tbody tr:hover {
+  background: var(--color-neutral-50);
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table .row-inactive td {
+  opacity: 0.55;
+}
+.users-table .row-inactive td:last-child {
+  opacity: 1;
+}
