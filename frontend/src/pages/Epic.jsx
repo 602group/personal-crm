@@ -200,7 +200,7 @@ export default function Epic() {
                       <TaskRow 
                         key={task.id} 
                         task={task} 
-                        onToggle={() => handleToggleStatus(task)}
+                        onCheck={() => handleToggleStatus(task)}
                         onEdit={() => { setEditTask(task); setShowTaskModal(true); }}
                         onDelete={() => handleDeleteTask(task.id)}
                       />
