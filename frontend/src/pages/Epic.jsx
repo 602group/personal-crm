@@ -87,11 +87,14 @@ export default function Epic() {
       <PageHeader 
         title="Epic Work" 
         subtitle="Manage epic-scale tasks and quick references."
-        primaryAction={activeTab === 'tasks' ? '+ New Task' : '+ Add Link'}
-        onPrimary={() => {
-          if (activeTab === 'tasks') { setEditTask(null); setShowTaskModal(true); }
-          else { setEditLink(null); setShowLinkModal(true); }
-        }}
+        actions={
+          <button className="btn btn-primary" onClick={() => {
+            if (activeTab === 'tasks') { setEditTask(null); setShowTaskModal(true); }
+            else { setEditLink(null); setShowLinkModal(true); }
+          }}>
+            {activeTab === 'tasks' ? '+ New Task' : '+ Add Link'}
+          </button>
+        }
       />
 
       <div className="epic-tabs">
