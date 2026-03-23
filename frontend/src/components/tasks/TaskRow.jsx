@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-const STATUS_LABELS   = { todo:'To Do', in_progress:'In Progress', waiting:'Waiting', completed:'Completed', archived:'Archived' };
-const PRIORITY_COLORS = { low:'#94a3b8', medium:'#6366f1', high:'#f97316', critical:'#ef4444' };
+const STATUS_LABELS   = { todo:'To Do', in_progress:'In Progress', review:'Review', waiting:'Waiting', completed:'Completed', done:'Completed', archived:'Archived' };
+const PRIORITY_COLORS = { low:'#94a3b8', medium:'#6366f1', high:'#f97316', urgent:'#ef4444', critical:'#ef4444' };
 
 function fmtDue(d) {
   if (!d) return null;
@@ -15,7 +15,7 @@ function fmtDue(d) {
 }
 
 export default function TaskRow({ task, onCheck, onEdit, onArchive, onClick }) {
-  const isCompleted = task.status === 'completed';
+  const isCompleted = task.status === 'completed' || task.status === 'done';
   const isArchived  = task.status === 'archived';
   const dueInfo     = fmtDue(task.due_date);
   const pColor      = PRIORITY_COLORS[task.priority] || '#94a3b8';
@@ -24,9 +24,9 @@ export default function TaskRow({ task, onCheck, onEdit, onArchive, onClick }) {
 
   return (
     <Link
-      to={`/tasks/${task.id}`}
+      to={task.project_id === undefined && !task.goal_titles ? '#' : `/tasks/${task.id}`}
       className={`task-row${isCompleted || isArchived ? ' completed-row' : ''}`}
-      onClick={e => onClick && stop(e, () => onClick(task))}
+      onClick={e => onClick ? stop(e, () => onClick(task)) : undefined}
     >
       {/* Checkbox */}
       <div onClick={e => stop(e, () => onCheck(task))} style={{ display:'flex', alignItems:'center' }}>
