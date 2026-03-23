@@ -46,8 +46,8 @@ router.get('/', (req, res) => {
   } else if (view === 'completed') {
     where.push(`t.status = 'completed'`);
   } else {
-    // Default: exclude archived unless explicitly filtered
-    if (!status) where.push(`t.status != 'archived'`);
+    // Default: exclude completed and archived unless explicitly filtered
+    if (!status) where.push(`t.status NOT IN ('completed', 'archived')`);
   }
 
   if (status && !view)  { where.push('t.status = ?');     params.push(status); }

@@ -12,8 +12,43 @@ const now = () => new Date().toISOString();
 // ═════════════════════════════════════════════════════════
 
 router.get('/tasks', (req, res) => {
-  const tasks = db.prepare(`SELECT * FROM epic_tasks WHERE owner_id=? ORDER BY created_at DESC`).all(req.user.id);
-  res.json({ tasks });
+  const userId = req.user.id;
+  const {
+    status, priority, project_id,
+    view, sort = 'due_date', dir = 'asc', search,
+  } = req.query;
+
+  const allowed = { due_date: 1, created_at: 1, updated_at: 1, priority: 1, title: 1 };
+  const sortCol = allowed[sort] ? sort : 'due_date';
+  const sortExpr = sortCol === 'priority'
+    ? `CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END`
+    : `t.${sortCol}`;
+  const sortDir = dir === 'desc' ? 'DESC' : 'ASC';
+
+  let where = ['t.owner_id = ?'];
+  let params = [userId];
+
+  if (view === 'completed') {
+    where.push(`t.status = 'done'`);
+  } else {
+    // Default: exclude completed unless explicitly filtered
+    if (!status) where.push(`t.status != 'done'`);
+  }
+
+  if (status && !view)  { where.push('t.status = ?');     params.push(status); }
+  if (priority)         { where.push('t.priority = ?');   params.push(priority); }
+  if (project_id)       { where.push('t.project_id = ?'); params.push(project_id); }
+  if (search)           { where.push('t.title LIKE ?');   params.push(`%${search}%`); }
+
+  const tasks = db.prepare(`
+    SELECT t.*, p.title AS project_title
+    FROM epic_tasks t
+    LEFT JOIN projects p ON p.id = t.project_id
+    WHERE ${where.join(' AND ')}
+    ORDER BY ${sortExpr} ${sortDir} NULLS LAST, t.created_at ASC
+  `).all(...params);
+
+  res.json({ tasks, total: tasks.length });
 });
 
 router.post('/tasks', (req, res) => {

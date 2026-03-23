@@ -2,7 +2,7 @@ import apiClient from './client';
 
 export const epicApi = {
   // Tasks
-  listTasks:   () => apiClient.get('/epic/tasks').then(r => r.data),
+  listTasks:   (params) => apiClient.get('/epic/tasks', { params }).then(r => r.data),
   createTask:  (data) => apiClient.post('/epic/tasks', data).then(r => r.data),
   updateTask:  (id, data) => apiClient.patch(`/epic/tasks/${id}`, data).then(r => r.data),
   deleteTask:  (id) => apiClient.delete(`/epic/tasks/${id}`).then(r => r.data),
