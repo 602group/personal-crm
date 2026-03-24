@@ -10,7 +10,7 @@ const apiRouter = require('./routes/index');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_URL = process.env.CORS_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // ─── Security ───────────────────────────────────────────────
 app.use(helmet());

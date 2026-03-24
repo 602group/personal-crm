@@ -15,9 +15,9 @@ services:
       - key: PORT
         value: 3001
       - key: JWT_ACCESS_SECRET
-        generateValue: true
+        sync: false   # Set this manually in the Render dashboard — NEVER change it after first set
       - key: JWT_REFRESH_SECRET
-        generateValue: true
+        sync: false   # Set this manually in the Render dashboard — NEVER change it after first set
       - key: JWT_ACCESS_EXPIRES_IN
         value: 8h
       - key: JWT_REFRESH_EXPIRES_IN

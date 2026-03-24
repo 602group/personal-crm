@@ -84,19 +84,24 @@ function migrate() {
 
   console.log('[migrate] All migrations complete.');
   
-  // Auto-seed or force-update admin user credentials
+  // Seed admin user only if they don't exist yet
+  // (avoid re-hashing on every boot — existing hash stays valid)
   const email = 'hburnside99@gmail.com';
-  const password = 'Waterboy1';
-  const password_hash = bcrypt.hashSync(password, 12);
-  const id = uuidv4();
-  
-  db.prepare(`
-    INSERT INTO users (id, email, password_hash, name, role)
-    VALUES (?, ?, ?, ?, 'owner')
-    ON CONFLICT(email) DO UPDATE SET password_hash=excluded.password_hash, role='owner'
-  `).run(id, email, password_hash, 'Hunter Burnside');
-  
-  console.log(`[migrate] Admin seeded/updated: ${email}`);
+  const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
+  if (!existing) {
+    const password = 'Waterboy1';
+    const password_hash = bcrypt.hashSync(password, 12);
+    const id = uuidv4();
+    db.prepare(`
+      INSERT INTO users (id, email, password_hash, name, role)
+      VALUES (?, ?, ?, ?, 'owner')
+    `).run(id, email, password_hash, 'Hunter Burnside');
+    console.log(`[migrate] Admin seeded: ${email}`);
+  } else {
+    // Ensure the role is always owner, don't touch the password
+    db.prepare(`UPDATE users SET role='owner' WHERE email=?`).run(email);
+    console.log(`[migrate] Admin exists, role verified: ${email}`);
+  }
 }
 
 migrate();
